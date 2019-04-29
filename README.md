@@ -1,3 +1,6 @@
-# First
-this is my first repository.
-I use it just to learn how to use it.
+这是一个学生管理系统。
+功能点：增加用户
+        删除用户
+        修改用户
+        查询用户
+谢谢
