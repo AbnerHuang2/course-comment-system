@@ -34,11 +34,11 @@
             <!-- menu profile quick info -->
             <div class="profile clearfix">
               <div class="profile_pic">
-                <img src="images/Fancy4.png" alt="..." class="img-circle profile_img">
+                <img th:src="@{${session.student.getHeadImg()}}" alt="..." class="img-circle profile_img">
               </div>
               <div class="profile_info">
                 <span>欢迎</span>
-                <h2 th:text="${session.teacher.getName()}"></h2>
+                <h2 th:text="${session.student.getName()}"></h2>
               </div>
               <div class="clearfix"></div>
             </div>
@@ -53,7 +53,9 @@
                 <ul class="nav side-menu">
                   <li><a><i class="fa fa-home"></i> 我的信息 <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
+                      <li><a href="home">日程安排</a></li>
                       <li><a href="personalInfo">基本信息</a></li>
+                      <li><a href="updatePwd">修改密码</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-file-word-o"></i> 我的课程 <span class="fa fa-chevron-down"></span></a>
@@ -98,7 +100,7 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/img.jpg" alt=""><span th:text="${session.teacher.getName()}"></span>
+                    <img th:src="@{${session.student.getHeadImg()}}" alt=""><span th:text="${session.student.getName()}"></span>
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -178,30 +180,22 @@
                           <th>任课老师</th>
                           <th>所占学分</th>
                           <th>课时</th>
-                          <th>周数</th>
+                          <th>成绩</th>
                           <th>操作</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>Tiger Nixon</td>
-                          <td>System Architect</td>
-                          <td>Edinburgh</td>
-                          <td>61</td>
-                          <td>2011/04/25</td>
+                        <tr th:each="course : ${courses}">
+                          <td th:text="${course.getCname()}">Tiger Nixon</td>
+                          <td th:text="${course.getTeacher()}">System Architect</td>
+                          <td th:text="${course.getCredit()}">Edinburgh</td>
+                          <td th:text="${course.getCtime()}">61</td>
+                          <td th:text="${course.getScores()}">2011/04/25</td>
                           <td>
+                          	<button type="button" class="btn btn-light btn-sm">成绩详情</button>
                           	<button type="button" class="btn btn-info btn-sm">评教</button>
-							<button type="button" class="btn btn-light btn-sm">评分</button>
 							<button type="button" class="btn btn-dark btn-sm">问卷调查</button>
                           </td>
-                        </tr>
-                        <tr>
-                          <td>Garrett Winters</td>
-                          <td>Accountant</td>
-                          <td>Tokyo</td>
-                          <td>63</td>
-                          <td>2011/07/25</td>
-                          <td>$170,750</td>
                         </tr>
                         
                       </tbody>

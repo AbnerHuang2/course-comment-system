@@ -34,11 +34,11 @@
             <!-- menu profile quick info -->
             <div class="profile clearfix">
               <div class="profile_pic">
-                <img src="images/Fancy4.png" alt="..." class="img-circle profile_img">
+                <img th:src="@{${session.student.getHeadImg()}}" alt="..." class="img-circle profile_img">
               </div>
               <div class="profile_info">
                 <span>欢迎</span>
-                <h2 th:text="${session.teacher.getName()}"></h2>
+                <h2 th:text="${session.student.getName()}"></h2>
               </div>
               <div class="clearfix"></div>
             </div>
@@ -53,7 +53,9 @@
                 <ul class="nav side-menu">
                   <li><a><i class="fa fa-home"></i> 我的信息 <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
+                      <li><a href="home">日程安排</a></li>
                       <li><a href="personalInfo">基本信息</a></li>
+                      <li><a href="updatePwd">修改密码</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-file-word-o"></i> 我的课程 <span class="fa fa-chevron-down"></span></a>
@@ -98,7 +100,7 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/img.jpg" alt=""><span th:text="${session.teacher.getName()}"></span>
+                    <img th:src="@{${session.student.getHeadImg()}}" alt=""><span th:text="${session.student.getName()}"></span>
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -148,78 +150,64 @@
 
             <div class="clearfix"></div>
 			
+			<div class="alert alert-dark alert-dismissible fade show" role="alert" id="myalert">
+			  <strong>Holy guacamole!</strong>
+			  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			    <span aria-hidden="false">&times;</span>
+			  </button>
+			</div>
+			
 			<div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>我的信息 /<small>基本信息</small></h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
+                    
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-
-                    <form class="form-horizontal form-label-left" novalidate>
+                    <form class="form-horizontal form-label-left" action="" method="post">
                       <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="stuNum">学号 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type='text' class="form-control col-md-7 col-xs-12" name="stuNum" th:value="${session.teacher.getAccount()}" required="required">
+                          <input type='text' class="form-control col-md-7 col-xs-12" id='sid' name="sid" th:value="${session.student.getSid()}" required="required">
                         </div>
                       </div>
                       <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">姓名 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" name="name" required="required" class="form-control col-md-7 col-xs-12">
+                          <input type="text" id='name' name="name" th:value="${session.student.getName()}" required="required" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
                       <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" >学校 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" name="school" required="required" class="form-control col-md-7 col-xs-12">
+                          <input type="text" id='school' name="school" th:value="${session.student.getSchool()}" required="required" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
                       <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">年级 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" name="grade" required="required" class="form-control col-md-7 col-xs-12">
+                          <input type="text" id="sclass" name="sclass" th:value="${session.student.getSclass()}" required="required" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
-                      <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" >寝室号 <span class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="number" name="address" required="required"  class="form-control col-md-7 col-xs-12">
-                        </div>
-                      </div>
+                     
                       <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="occupation">手机 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" name="phone" class="optional form-control col-md-7 col-xs-12">
+                          <input type="text" id='phone' name="phone" th:value="${session.student.getPhone()}" class="optional form-control col-md-7 col-xs-12">
                         </div>
                       </div>
                       <div class="item form-group bad">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">Email <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="email" name="email" required="required" class="form-control col-md-7 col-xs-12">
+                          <input type="email" id='email' name="email" th:value="${session.student.getEmail()}" required="required" class="form-control col-md-7 col-xs-12">
                         </div>                	
                       </div>
                      
@@ -233,7 +221,8 @@
                     </form>
                   </div>
                 </div>
-			         
+			  </div>  
+			</div>     
           </div>
         </div>
         <!-- /page content -->
@@ -258,6 +247,7 @@
     <!-- NProgress -->
     <script src="vendors/nprogress/nprogress.js"></script>
     
+    <!-- validator -->
     <script src="vendors/validator/validator.js"></script>
     
     <!-- Custom Theme Scripts -->
@@ -267,6 +257,43 @@
     	$(".x_content input").attr("readonly","");
     	$("#updateBtn").click(function(){
     		$(".x_content input").removeAttr("readonly");
+    		$(".x_content input").first().attr("readonly","");
+    		return false;
+    	});
+    	$("#send").click(function(){
+    		if(($(".x_content input").last().attr("readonly"))!=null){
+    			$('#myalert').attr("class","alert alert-warning alert-dismissible fade in");
+    			$('#myalert strong').text("如果需要修改，请先点击修改 .");
+    			//alert("如果需要修改，请先点击修改 .");
+    			return false;
+    		}
+    		$.ajax({
+    			url:"http://localhost:8080/updateStuInfo",
+    			type:"POST",
+    			contentType:"application/json;charset=utf-8",
+				dataType: "json",
+				data:JSON.stringify({
+					//特别注意：前面的键应该和被封装对象的属性一致，不然封装不成功。
+					"sid":$("#sid").val(),
+					"name":$("#name").val(),
+					"school":$("#school").val(),
+					"sclass":$("#sclass").val(),
+					"phone":$("#phone").val(),
+					"email":$("#email").val(),					
+				}),
+				
+    			success:function(data){
+    				if(data==1){
+    					$('#myalert').attr("class","alert alert-success alert-dismissible fade in");
+    	    			$('#myalert strong').text("更新成功.");
+    					//alert("更新成功");
+    					$(".x_content input").attr("readonly","");
+    				}
+    			}
+    		});
+    		//$(".x_content input").attr("readonly","");
+    		
+    		return false;
     	});
     </script>
     
