@@ -1,3 +1,3 @@
-# web666
+# this is a course comment system
 
-web大作业
+It's for student to make comment for the classes they took;
